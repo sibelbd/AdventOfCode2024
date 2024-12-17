@@ -1,8 +1,11 @@
 def main():
     list1, list2 = _read_sorted_lists_from_file()
-    # total_distance = _get_total_distance(list1, list2)
-    #
-    # print("Total Distance: ", total_distance)
+
+    # part 1
+    total_distance = _get_total_distance(list1, list2)
+    print("Total Distance: ", total_distance)
+
+    # part 2
     num_appearances = _create_dict_of_num_appearances_in_list(list2)
     similarity_score = _calculate_similarity_score(list1, num_appearances)
     print("similarity score: ", similarity_score)
@@ -50,9 +53,9 @@ def _read_sorted_lists_from_file():
     return list1, list2
 
 
-def _create_dict_of_num_appearances_in_list(x_list):
+def _create_dict_of_num_appearances_in_list(num_list):
     appearances_by_num = {}
-    for num in x_list:
+    for num in num_list:
         if num in appearances_by_num.keys():
             appearances_by_num[num] += 1
         else:
@@ -60,9 +63,9 @@ def _create_dict_of_num_appearances_in_list(x_list):
     return appearances_by_num
 
 
-def _calculate_similarity_score(x_list, num_appearances):
+def _calculate_similarity_score(num_list, num_appearances):
     total = 0
-    for num in x_list:
+    for num in num_list:
         if num in num_appearances.keys():
             total += (num_appearances[num] * num)
     return total
