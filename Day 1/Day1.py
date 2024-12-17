@@ -1,4 +1,14 @@
 def main():
+    list1, list2 = _read_sorted_lists_from_file()
+    # total_distance = _get_total_distance(list1, list2)
+    #
+    # print("Total Distance: ", total_distance)
+    num_appearances = _create_dict_of_num_appearances_in_list(list2)
+    similarity_score = _calculate_similarity_score(list1, num_appearances)
+    print("similarity score: ", similarity_score)
+
+
+def _read_sorted_lists_from_file():
     # initialize lists
     list1 = []
     list2 = []
@@ -21,9 +31,9 @@ def main():
             for i in range(len(list1)):
                 # if the number in this position is greater than the num1
                 # update the index to insert it before this number
-                if i_insert_num1 == None and list1[i] >= num1:
+                if i_insert_num1 is None and list1[i] >= num1:
                     i_insert_num1 = i
-                if i_insert_num2 == None and list2[i] >= num2:
+                if i_insert_num2 is None and list2[i] >= num2:
                     i_insert_num2 = i
 
             # if it's the largest number, append to the end, othewise insert 
@@ -37,7 +47,25 @@ def main():
             else:
                 list2.insert(i_insert_num2, num2)
 
-    print("Total Distance: ", _get_total_distance(list1, list2))
+    return list1, list2
+
+
+def _create_dict_of_num_appearances_in_list(x_list):
+    appearances_by_num = {}
+    for num in x_list:
+        if num in appearances_by_num.keys():
+            appearances_by_num[num] += 1
+        else:
+            appearances_by_num[num] = 1
+    return appearances_by_num
+
+
+def _calculate_similarity_score(x_list, num_appearances):
+    total = 0
+    for num in x_list:
+        if num in num_appearances.keys():
+            total += (num_appearances[num] * num)
+    return total
 
 
 def _get_total_distance(list1, list2):
